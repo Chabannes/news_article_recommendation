@@ -1,0 +1,8 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=storageacountfrancd3283e;AccountKey=VDiX7xsJjMhb6Wqs1lzA4b9ItGN3nEuTPhsu9zE37fYJ/YdJ31HeK9zNiv8Ti8Z053HJbwRZpv2b+AStAkv7ug==;EndpointSuffix=core.windows.net",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "articleEventHub_listen_policy_EVENTHUB": "Endpoint=sb://articleeventhub.servicebus.windows.net/;SharedAccessKeyName=listen_policy;SharedAccessKey=k1PnGdu212WcS61vicSBOxaq1Wy8wnKrN+AEhOW86BM=;EntityPath=article_generation"
+  }
+}
