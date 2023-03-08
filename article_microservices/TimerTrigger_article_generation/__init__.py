@@ -13,32 +13,63 @@ import datetime
 import re
 
 
-def clean_content(content):
 
 
-    logging.info("**RAW TEXT:")
-    logging.info(content)
+def add_dot_space(text):
+    return re.sub(r'([a-z])([A-Z])', r'\1. \2', text)
 
-    content = content.split("You may also be interested in")[0]
-    content = content.split("Related Topics")[0]
-    content = content.split("Read more here")[0]
-    content = content.split("Send your story ideas to")[0]
+
+def add_space_after_dot(text):
+    return re.sub(r'\.(?! )', r'. ', text)
+
+
+def clean_end_of_article(text):
+
+    text = text.split("You may also be interested in")[0]
+    text = text.split("Related Topics")[0]
+    text = text.split("Read more here")[0]
+    text = text.split("Send your story ideas to")[0]
+
+    return text
+
+
+def clean_start_of_article(text):
 
     if "This video can not be playedTo play this video you need to enable JavaScript in your browser." in content:
         content = content.split("This video can not be playedTo play this video you need to enable JavaScript in your browser.")[1]
 
-    content = re.sub(r"Published.*?Media caption", "", content)
-    content = re.sub(r"Published.*?Image caption", "", content)
-    content = re.sub(r"Published.*?Image source", "", content)
-    content = re.sub(r"Last updated on.*?.", "", content)
-    content = re.sub(r'Last updated.*?\.', '.', content)
-    content = re.sub(r"Available to UK users.*?sharingRead description", "", content)
+    text = re.sub(r"Published.*?Media caption", "", text)
+    text = re.sub(r"Published.*?Image caption", "", text)
+    text = re.sub(r"Published.*?Image caption", "", text)
+    text = re.sub(r"Published.*?NurPhoto", "", text)
 
-    content = content.replace('There was an errorThis content is not available in your location', '')
-    content = content.replace('To use comments you will need to have JavaScript enabled.', '')
-    content = content.replace('\n"', "")
-    content = content.replace('\"', "' ")
-    content = content.replace('\u2026', '')
+    return text
+
+
+def clean_middle_of_article(text):
+
+    text = re.sub(r"Last updated on.*?.", "", text)
+    text = re.sub(r'Last updated.*?\.', '.', text)
+    text = re.sub(r"Available to UK users.*?sharingRead description", "", text)
+    text = text.replace('There was an errorThis content is not available in your location', '')
+    text = text.replace('To use comments you will need to have JavaScript enabled.', '')
+    text = text.replace('\n"', "")
+    text = text.replace('\"', "' ")
+    text = text.replace('\u2026', '')
+
+    return text
+
+
+def clean_content(content):
+
+    logging.info("**RAW TEXT:")
+    logging.info(content)
+
+    content = clean_end_of_article(content)
+    content = clean_start_of_article(content)
+    content = clean_middle_of_article(content)
+    content = add_dot_space(content)
+    content = add_space_after_dot(content)
 
     logging.info("**PROCESSED TEXT:")
     logging.info(content)
@@ -48,8 +79,6 @@ def clean_content(content):
     
 
 def main(timer: func.TimerRequest, outputMessage: func.Out[str]) -> None: 
-
-
 
     utc_timestamp = datetime.datetime.utcnow().replace(
             tzinfo=datetime.timezone.utc).isoformat()
