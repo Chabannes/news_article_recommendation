@@ -35,8 +35,8 @@ def clean_end_of_article(text):
 
 def clean_start_of_article(text):
 
-    if "This video can not be playedTo play this video you need to enable JavaScript in your browser." in content:
-        content = content.split("This video can not be playedTo play this video you need to enable JavaScript in your browser.")[1]
+    if "This video can not be playedTo play this video you need to enable JavaScript in your browser." in text:
+        text = text.split("This video can not be playedTo play this video you need to enable JavaScript in your browser.")[1]
 
     text = re.sub(r"Published.*?Media caption", "", text)
     text = re.sub(r"Published.*?Image caption", "", text)
@@ -60,21 +60,21 @@ def clean_middle_of_article(text):
     return text
 
 
-def clean_content(content):
+def clean_content(text):
 
     logging.info("**RAW TEXT:")
-    logging.info(content)
+    logging.info(text)
 
-    content = clean_end_of_article(content)
-    content = clean_start_of_article(content)
-    content = clean_middle_of_article(content)
-    content = add_dot_space(content)
-    content = add_space_after_dot(content)
+    text = clean_end_of_article(text)
+    text = clean_start_of_article(text)
+    text = clean_middle_of_article(text)
+    text = add_dot_space(text)
+    text = add_space_after_dot(text)
 
     logging.info("**PROCESSED TEXT:")
-    logging.info(content)
+    logging.info(text)
 
-    return content
+    return text
 
     
 
