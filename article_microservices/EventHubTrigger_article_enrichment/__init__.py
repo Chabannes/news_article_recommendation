@@ -145,6 +145,21 @@ async def main(articles: func.EventHubEvent):
                 properties[tag] = score
 
 
+            # get the best tags of the new article
+            best_tags = await get_best_tags(properties)
+
+            # Construct the query to select articles with the specified properties and label
+            query = "g.V().hasLabel('article')"
+            for tag in best_tags:
+                query += ".has('{}', lte(2))".format(tag)
+            query += ".limit(200).values('title').fold()"
+
+            # Get the same-category articles
+            all_titles = gremlin_client.submit(query)
+            all_titles = all_titles.all().result()
+            all_titles = list(all_titles[0])
+
+            
             # Construct the Gremlin query with the properties
             add_query = """
                     g.addV('article')
@@ -162,21 +177,6 @@ async def main(articles: func.EventHubEvent):
             # Execute the Gremlin query with the given article properties
             result_set = gremlin_client.submitAsync(add_query, properties)
             logging.info('**INFO: Article successfully inserted')
-
-
-            # get the best tags of the new article
-            best_tags = await get_best_tags(properties)
-
-            # Construct the query to select articles with the specified properties and label
-            query = "g.V().hasLabel('article')"
-            for tag in best_tags:
-                query += ".has('{}', lte(2))".format(tag)
-            query += ".limit(200).values('title').fold()"
-
-            # Get the same-category articles
-            all_titles = gremlin_client.submit(query)
-            all_titles = all_titles.all().result()
-            all_titles = list(all_titles[0])
 
 
             # Loop over all titles in the list and compute similarity
