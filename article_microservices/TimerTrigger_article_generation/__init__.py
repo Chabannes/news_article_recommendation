@@ -42,6 +42,7 @@ def clean_start_of_article(text):
     text = re.sub(r"Published.*?Image caption", "", text)
     text = re.sub(r"Published.*?Image caption", "", text)
     text = re.sub(r"Published.*?NurPhoto", "", text)
+    text = text.replace('Media caption, ', '')
 
     return text
 
