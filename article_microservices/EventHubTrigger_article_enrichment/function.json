@@ -5,7 +5,7 @@
       "type": "eventHubTrigger",
       "name": "articles",
       "direction": "in",
-      "eventHubName": "article_generation",
+      "eventHubName": "event-hub-article-generation",
       "connection": "listen_articleEventConnectionString",
       "cardinality": "many",
       "consumerGroup": "$Default"

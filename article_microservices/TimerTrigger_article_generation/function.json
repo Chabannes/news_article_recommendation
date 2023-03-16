@@ -5,14 +5,14 @@
       "name": "timer",
       "type": "timerTrigger",
       "direction": "in",
-      "schedule": "0 0 */6 * * *"
+      "schedule": "0 */5 * * * *"
     },
 
     {
       "name": "outputMessage",
       "type": "eventHub",
       "direction": "out",
-      "eventHubName": "article_generation",
+      "eventHubName": "event-hub-article-generation",
       "connection": "send_articleEventConnectionString"
     }
   ]
