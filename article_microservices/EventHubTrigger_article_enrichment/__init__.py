@@ -81,8 +81,6 @@ async def get_labels(text):
     raise ValueError('Could not get answer model-tagging API: %s', response.text)
 
 
-
-
 async def main(articles: func.EventHubEvent):
 
     new_articles = articles
@@ -96,16 +94,11 @@ async def main(articles: func.EventHubEvent):
 
 
     # Create a Gremlin client and connect to the Cosmos DB graph
-    gremlin_client = client.Client('wss://recommendation-cosmosdb.gremlin.cosmosdb.azure.com:443/', 'g',
-                                        username="/dbs/recommendation_DB/colls/articles_users_graph",
-                                        password="UzFNFIkchGxb0RVkn3jTH04TCgJwgUnS4AGRb2efWhtJoSGL8vv8ytpkIGuro1W6im7Mpp2eBtIvACDblh218Q==",
+    gremlin_client = client.Client('wss://cosmosdb-amavla-recommendation.gremlin.cosmos.azure.com:443/', 'g',
+                                        username="/dbs/cosmosdb-amavla-recommendation/colls/graph_articles_users",
+                                        password="H4WjsCs5ebeXj8j7K2lwW9ZtBLU4kZabojX2XouEuL6y55UWXwtflPQYOqSX5kUDu7vzctMmGRHrACDbFFs6og==",
                                         message_serializer=serializer.GraphSONSerializersV2d0()
                                         )
-
-    # # A basculer dans la loop car ça va dépendre de chaque article
-    # all_titles = gremlin_client.submit("g.V().hasLabel('article').limit(200).values('title').fold()")
-    # all_titles = all_titles.all().result()
-    # all_titles = list(all_titles[0])
 
 
     for new_article in new_articles:
