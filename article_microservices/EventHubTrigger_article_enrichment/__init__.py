@@ -92,8 +92,6 @@ async def main(articles: func.EventHubEvent):
     
     gremlin_client = None
 
-    #cosmosdb-amavla-recommendation
-    #wss://cosmosdb-amavla-recommendation.gremlin.cosmos.azure.com:443/
 
     # Create a Gremlin client and connect to the Cosmos DB graph
     gremlin_client = client.Client('wss://cosmosdb-amavla-recommendation.gremlin.cosmos.azure.com:443/', 'g',
