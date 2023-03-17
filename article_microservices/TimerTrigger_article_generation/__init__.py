@@ -27,10 +27,6 @@ def remove_in_between(text, start_str, end_str):
     return text
 
 
-def add_dot_space(text):
-    return re.sub(r'([a-z])([A-Z])', r'\1. \2', text)
-
-
 def add_space_after_dot(text):
     return re.sub(r'\.(?! )', r'. ', text)
 
@@ -83,9 +79,9 @@ def clean_middle_of_article(text):
     text = remove_in_between(text, start_str='Available to UK users', end_str='sharingRead description')
     text = text.replace('There was an errorThis content is not available in your location', '')
     text = text.replace('To use comments you will need to have JavaScript enabled.', '')
-    text = text.replace('\n"', "")
+    text = text.replace('\n"', " ")
     text = text.replace('\"', "' ")
-    text = text.replace('\u2026', '')
+    text = text.replace('\u2026', ' ')
 
     return text
 
@@ -98,7 +94,6 @@ def clean_content(text):
     text = clean_end_of_article(text)
     text = clean_start_of_article(text)
     text = clean_middle_of_article(text)
-    text = add_dot_space(text)
     text = add_space_after_dot(text)
 
     logging.info("**PROCESSED TEXT:")
