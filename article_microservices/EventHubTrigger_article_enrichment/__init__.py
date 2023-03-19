@@ -3,6 +3,7 @@ import json
 import time
 import requests
 import asyncio
+import os
 
 import azure.functions as func
 from gremlin_python.driver import client, serializer
@@ -92,11 +93,15 @@ async def main(articles: func.EventHubEvent):
     
     gremlin_client = None
 
+    cosmosDB_endpoint = os.environ['cosmosDB_endpoint']
+    cosmos_database_name = os.environ['cosmos_database_name']
+    graph_name = os.environ['graph_name']
+    cosmosDB_key = os.environ['cosmosDB_key']
 
     # Create a Gremlin client and connect to the Cosmos DB graph
-    gremlin_client = client.Client('wss://cosmosdb-amavla-recommendation.gremlin.cosmos.azure.com:443/', 'g',
-                                        username="/dbs/news-recommendation-db/colls/graph_articles_users",
-                                        password="H4WjsCs5ebeXj8j7K2lwW9ZtBLU4kZabojX2XouEuL6y55UWXwtflPQYOqSX5kUDu7vzctMmGRHrACDbFFs6og==",
+    gremlin_client = client.Client(cosmosDB_endpoint, 'g',
+                                        username="/dbs/%s/colls/%s" % (cosmos_database_name, graph_name),
+                                        password=cosmosDB_key,
                                         message_serializer=serializer.GraphSONSerializersV2d0()
                                         )
 
