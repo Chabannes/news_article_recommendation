@@ -98,6 +98,12 @@ async def main(articles: func.EventHubEvent):
     graph_name = os.environ['graph_name']
     cosmosDB_key = os.environ['cosmosDB_key']
 
+    logging.info('cosmosDB_endpoint: %s', cosmosDB_endpoint)
+    logging.info('cosmos_database_name: %s', cosmos_database_name)
+    logging.info('graph_name: %s', graph_name)
+    logging.info('cosmosDB_key: %s', cosmosDB_key)
+
+
     # Create a Gremlin client and connect to the Cosmos DB graph
     gremlin_client = client.Client(cosmosDB_endpoint, 'g',
                                         username="/dbs/%s/colls/%s" % (cosmos_database_name, graph_name),
