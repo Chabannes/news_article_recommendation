@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: 'Development'
       url: ${{ steps.deploy-to-function.outputs.webapp-url }}
 
     steps:
@@ -68,7 +68,7 @@ jobs:
         id: deploy-to-function
         with:
           app-name: 'FunctionApp-amavla-ArticleGeneration'
-          slot-name: 'Production'
+          slot-name: 'development'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F80E49A643EA43C69FF6AA516F0C1E39 }}
           scm-do-build-during-deployment: true
