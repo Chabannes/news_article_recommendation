@@ -68,6 +68,6 @@ jobs:
           app-name: 'functionapp-amavla-articlegeneration(development)'
           slot-name: 'development'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_9b4057ccd84748e18c3b81adc334851e }}
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_dev }}
           scm-do-build-during-deployment: true
           enable-oryx-build: true
