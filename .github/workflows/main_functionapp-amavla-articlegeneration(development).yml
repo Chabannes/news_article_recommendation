@@ -67,7 +67,7 @@ jobs:
         uses: Azure/functions-action@v1
         id: deploy-to-function
         with:
-          app-name: 'functionapp-amavla-articlegeneration'
+          app-name: 'FunctionApp-amavla-ArticleGeneration'
           slot-name: 'development'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6C29F5FF96C64B9D818F00E0D41CA7E2 }}
