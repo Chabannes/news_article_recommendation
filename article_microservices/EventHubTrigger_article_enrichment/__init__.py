@@ -20,7 +20,6 @@ nest_asyncio.apply()
 import asyncio
 
 
-
 async def get_best_tags(properties):
     tags = ['sport', 'tech', 'politics', 'entertainment', 'business']
     best_tags = []

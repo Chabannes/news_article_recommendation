@@ -12,7 +12,7 @@
       "name": "outputMessage",
       "type": "eventHub",
       "direction": "out",
-      "eventHubName": "event-hub-article-generation",
+      "eventHubName": "%EVENT_HUB_ARTICLE_GENERATION%",
       "connection": "send_articleEventConnectionString"
     }
   ]
