@@ -12,7 +12,9 @@ from newsapi import NewsApiClient
 import datetime 
 import re
 
-### test
+
+logging.info('NEEEEEEEEEEEEEW')
+
 
 def remove_in_between(text, start_str, end_str):
     
