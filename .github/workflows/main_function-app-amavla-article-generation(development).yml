@@ -8,7 +8,13 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'article_microservices'
   workflow_dispatch:
+
 
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your web app project, defaults to the repository root
@@ -32,7 +38,7 @@ jobs:
           source venv/bin/activate
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r ./article_microservices/requirements.txt
         
       # Optional: Add step to run tests here
 
